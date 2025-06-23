@@ -3,40 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vageesh's Learning Results</title>
+  <title>Vageesh's Learning Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      text-align: center;
-      background-color: #f3f3f3;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
       padding: 20px;
+      text-align: center;
     }
-    h1 {
+    h1, h2 {
       color: #333;
     }
     canvas {
       max-width: 800px;
       margin: 20px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    pre {
+      text-align: left;
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #222;
+      color: #0f0;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    iframe {
+      max-width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
 
-  <h1>📚 Vageesh's Learning Progress</h1>
+  <h1>📚 Vageesh's Learning Progress Dashboard</h1>
 
-  <!-- Bar Chart -->
+  <!-- Charts -->
   <h2>🟦 Skill Scores by Subject</h2>
   <canvas id="barChart"></canvas>
 
-  <!-- Line Chart -->
   <h2>📈 Improvement Over Time</h2>
   <canvas id="lineChart"></canvas>
 
+  <!-- Code Display -->
+  <h2>📜 Code Example</h2>
+  <pre>
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+
+data = pd.read_csv("HousePrice.csv")
+X = data[["LotArea", "OverallCond"]]
+y = data["SalePrice"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+model = LinearRegression()
+model.fit(X_train, y_train)
+pred = model.predict(X_test)
+print("MSE:", mean_squared_error(y_test, pred))
+  </pre>
+
+  <!-- Replit Live Code Runner -->
+  <h2>▶️ Try the Code Live</h2>
+  <p>Run the actual house price prediction model live below!</p>
+  <iframe height="500px" width="100%" src="https://replit.com/@vageeshgoswami/HousePricePredictor?embed=true" loading="lazy"></iframe>
+
   <script>
-    // Bar chart data
+    // Bar Chart
     const barCtx = document.getElementById('barChart').getContext('2d');
-    const barChart = new Chart(barCtx, {
+    new Chart(barCtx, {
       type: 'bar',
       data: {
         labels: ['Python', 'ML', 'DL', 'NLP', 'Math', 'DSA'],
@@ -51,17 +93,14 @@
       options: {
         responsive: true,
         scales: {
-          y: {
-            beginAtZero: true,
-            max: 100
-          }
+          y: { beginAtZero: true, max: 100 }
         }
       }
     });
 
-    // Line chart data
+    // Line Chart
     const lineCtx = document.getElementById('lineChart').getContext('2d');
-    const lineChart = new Chart(lineCtx, {
+    new Chart(lineCtx, {
       type: 'line',
       data: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
@@ -71,17 +110,13 @@
           fill: true,
           backgroundColor: 'rgba(153, 102, 255, 0.2)',
           borderColor: 'rgba(153, 102, 255, 1)',
-          borderWidth: 2,
           tension: 0.3
         }]
       },
       options: {
         responsive: true,
         scales: {
-          y: {
-            beginAtZero: true,
-            max: 100
-          }
+          y: { beginAtZero: true, max: 100 }
         }
       }
     });
